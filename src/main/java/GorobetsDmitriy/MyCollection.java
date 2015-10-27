@@ -1,6 +1,8 @@
 package GorobetsDmitriy;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * @author Gorobets Dmitriy
@@ -17,17 +19,28 @@ import java.util.List;
  */
 
 public class MyCollection implements CollectionMethods {
-
+   private List<Number> list = new LinkedList<>();
     @Override
-    public List<Number> add(List<Number> list) {
+    public List<Number> add(Number number) {
 
+        list.add(number);
+        if (list.size() >= 5) {
+            list.remove(list.size() - 5);
+        }
 
         return list;
     }
 
     @Override
-    public List<Number> delete(List<Number> list) {
-        return null;
+    public List<Number> delete(int index) {
+        Number num = list.get(index);
+        ListIterator<Number> iter = list.listIterator();
+        while(iter.hasNext()){
+           Number m =  iter.next();
+//            iter.set(m.);
+        }
+
+        return list;
     }
 
     @Override

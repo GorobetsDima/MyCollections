@@ -6,8 +6,8 @@ import java.util.List;
  * @author Dmitriy Gorobets .
  */
 public interface CollectionMethods {
-     List<Number> add(List<Number> list);
-    List<Number> delete(List<Number> list);
+     List<Number> add(Number number);
+    List<Number> delete(int index);
     List<Number> print(List<Number> list);
 
 }

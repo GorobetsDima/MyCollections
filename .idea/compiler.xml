@@ -26,5 +26,8 @@
         <module name="MyCollection" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="1.8">
+      <module name="MyCollection" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
