@@ -8,6 +8,6 @@ import java.util.List;
 public interface CollectionMethods {
      List<Number> add(Number number);
     List<Number> delete(int index);
-    List<Number> print(List<Number> list);
+    String print();
 
 }
