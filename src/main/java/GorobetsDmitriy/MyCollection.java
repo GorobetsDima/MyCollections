@@ -27,7 +27,7 @@ import java.util.ListIterator;
 
  */
 public class MyCollection implements CollectionMethods {
-    private List<Number> list = new LinkedList<>();
+    private List<Number> list = new LinkedList<Number>();
 
     public List<Number> getList() {
         return list;
@@ -84,36 +84,35 @@ public class MyCollection implements CollectionMethods {
         if (removeN instanceof Double) {
             d = removeN.doubleValue();
         }
-        list.remove(index);
-        ListIterator<Number> iter = list.listIterator();
-        while (iter.hasNext()) {
-            if (iter.next() instanceof Byte) {
-                Number newN = iter.next().byteValue() + b;
-                iter.set(newN);
+
+        for (int j = 0; j < list.size(); j++) {
+            if (list.get(j) instanceof Byte) {
+                Number newN = (list.get(j).byteValue() + b);
+                list.set(j, newN);
             }
-            if (iter.next() instanceof Short) {
-                Number newN = iter.next().shortValue() + sh;
-                iter.set(newN);
+            if (list.get(j) instanceof Short) {
+                Number newN = list.get(j).shortValue() + sh;
+                list.set(j, newN);
             }
-            if (iter.next() instanceof Integer) {
-                System.out.println(iter.next().intValue());
-                Number newN = iter.next().intValue() + i;
-                iter.set(newN);
+            if (list.get(j) instanceof Integer) {
+                Number newN = list.get(j).intValue() + i;
+                list.set(j, newN);
             }
-            if (iter.next() instanceof Long) {
-                Number newN = iter.next().longValue() + l;
-                iter.set(newN);
+            if (list.get(j) instanceof Long) {
+                Number newN = list.get(j).longValue() + l;
+                list.set(j, newN);
             }
-            if (iter.next() instanceof Float) {
-                Number newN = iter.next().floatValue() + f;
-                iter.set(newN);
+            if (list.get(j) instanceof Float) {
+                Number newN = list.get(j).floatValue() + f;
+                list.set(j, newN);
             }
-            if (iter.next() instanceof Double) {
-                Number newN = iter.next().doubleValue() + d;
-                iter.set(newN);
+            if (list.get(j) instanceof Double) {
+                Number newN = list.get(j).doubleValue() + d;
+                list.set(j, newN);
             }
 
         }
+        list.remove(index);
         return list;
     }
 

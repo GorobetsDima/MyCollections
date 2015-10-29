@@ -30,8 +30,8 @@ public class Main {
 //       collection.add(16);
 //       List<Number> li =  collection.add(17);
 //        System.out.println(li);
-
-        System.out.println(collection.print());
+        System.out.println(collection.delete(1));
+//        System.out.println(collection.print());
 
     }
 }
