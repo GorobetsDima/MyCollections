@@ -1,33 +1,25 @@
 package GorobetsDmitriy;
 
+import org.apache.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 /**
  * @author Gorobets Dmitriy
  *         <p>
- *         At this Class in method "calculate" I put 3 arguments
- *         There is checked an operator and according to the operator chooses,
- *         which way to use for a calculation in the constructor
+ *         At  method "add":
+ *         There is an element with "Number" type adds and deletes fifth element from the end at "list" collection
  *         <p>
- *         First argument is "firstArg"-it have to be a double type
+ *         At method "delete": There is an element with "Number" type  deletes and the value of the deleted element
+ *         is added to the other elements at "list" collection
  *         <p>
- *         Second argument is "operator"-it have to be an operator
+ *         At method "print": there is  Every second element of collection "list" prints and pronts size of the collection
  *         <p>
- *         Third argument is "secondArg"-it have to be a double type
- */
-/*
-1. Написать свою коллекцию, элементы которого будут только числа, где реализовано добавление, удаление и распечатка
+  */
 
-при добавлении: добавляется элемент к коллекции и при этом удаляется пятый с конца (если такой элемент присутствует)
-при удалении: удаляется элемент и при этом остальные элементы прибавляются ровно на то число которые вы удалили
-при распечатки: переопределите метод toString() так, чтобы распечатался каждый второй элемент и попутно size коллекции
-
-
- */
 public class MyCollection implements CollectionMethods {
-    private List<Number> list = new LinkedList<Number>();
+    public static final Logger MY_COLL_LOGG = Logger.getLogger(MyCollection.class);
+    private List<Number> list = new LinkedList<>();
 
     public List<Number> getList() {
         return list;
@@ -44,15 +36,27 @@ public class MyCollection implements CollectionMethods {
         this.list = list;
     }
 
+    /**
+     *
+     * @param number - it's an element which we want to add to this collection
+     * @return List<Number> list
+     */
+
     @Override
     public List<Number> add(Number number) {
         list.add(number);
         if (list.size() >= 5) {
             list.remove(list.size() - 5);
         }
-
+        MY_COLL_LOGG.info("Коллекция \"list\" содержит такие элементы после добавления элемента \"" + number + "\" : " + list);
         return list;
     }
+
+    /**
+     *
+     * @param index - it's an index of an element which we want to delete
+     * @return  List<Number> list
+     */
 
     @Override
     public List<Number> delete(int index) {
@@ -73,7 +77,6 @@ public class MyCollection implements CollectionMethods {
         }
         if (removeN instanceof Integer) {
             i = removeN.intValue();
-            System.out.println(i);
         }
         if (removeN instanceof Long) {
             l = removeN.longValue();
@@ -85,55 +88,61 @@ public class MyCollection implements CollectionMethods {
             d = removeN.doubleValue();
         }
 
-        for (int j = 0; j < list.size(); j++) {
-            if (list.get(j) instanceof Byte) {
-                Number newN = (list.get(j).byteValue() + b);
-                list.set(j, newN);
+        for (int elementIndex = 0; elementIndex < list.size(); elementIndex++) {
+            if (list.get(elementIndex) instanceof Byte) {
+                Number newN = (list.get(elementIndex).byteValue() + b);
+                list.set(elementIndex, newN);
             }
-            if (list.get(j) instanceof Short) {
-                Number newN = list.get(j).shortValue() + sh;
-                list.set(j, newN);
+            if (list.get(elementIndex) instanceof Short) {
+                Number newN = list.get(elementIndex).shortValue() + sh;
+                list.set(elementIndex, newN);
             }
-            if (list.get(j) instanceof Integer) {
-                Number newN = list.get(j).intValue() + i;
-                list.set(j, newN);
+            if (list.get(elementIndex) instanceof Integer) {
+                Number newN = list.get(elementIndex).intValue() + i;
+                list.set(elementIndex, newN);
             }
-            if (list.get(j) instanceof Long) {
-                Number newN = list.get(j).longValue() + l;
-                list.set(j, newN);
+            if (list.get(elementIndex) instanceof Long) {
+                Number newN = list.get(elementIndex).longValue() + l;
+                list.set(elementIndex, newN);
             }
-            if (list.get(j) instanceof Float) {
-                Number newN = list.get(j).floatValue() + f;
-                list.set(j, newN);
+            if (list.get(elementIndex) instanceof Float) {
+                Number newN = list.get(elementIndex).floatValue() + f;
+                list.set(elementIndex, newN);
             }
-            if (list.get(j) instanceof Double) {
-                Number newN = list.get(j).doubleValue() + d;
-                list.set(j, newN);
+            if (list.get(elementIndex) instanceof Double) {
+                Number newN = list.get(elementIndex).doubleValue() + d;
+                list.set(elementIndex, newN);
             }
 
         }
         list.remove(index);
+        MY_COLL_LOGG.info("Коллекция \"list\" содержит такие элементы после удаления элемента \"" + removeN + "\": " + list);
         return list;
     }
 
+    /**
+     *
+     * @return Information about every second element of collection "list"  and size of the collection
+     */
+
     @Override
     public String print() {
-        Number num = null;
-        List<Number> newList = new LinkedList<>();
-        ListIterator<Number> iterat = list.listIterator();
-        while (iterat.hasNext()) {
-            iterat.next();
-            if (iterat.hasNext()) {
-                num = iterat.next();
-            }
-            if (iterat.nextIndex() < list.size()) {
-                newList.add(num);
-            }
-        }
 
-        return " MyCollection{" +
-                "Лист чисел 'list' содержит такие значения в каждом втором элементе: " + newList + "; Размер листа =" + list.size() +
-                "элементов }";
+        Number num;
+        List<Number> newList = new LinkedList<>();
+
+        for (int elementIndex = 1; elementIndex < list.size(); elementIndex = elementIndex + 2) {
+
+            num = list.get(elementIndex);
+            newList.add(num);
+        }
+        MY_COLL_LOGG.info("Коллекция \"list\" содержит такие значения в каждом втором элементе: " + newList + "; Размер коллекции =" + list.size() +
+                " элементов.");
+
+        return " MyCollection {" +
+                "Коллекция \"list\" содержит такие значения в каждом втором элементе: " + newList + "; Размер коллекции =" + list.size() +
+                " элементов }";
     }
+
 
 }
